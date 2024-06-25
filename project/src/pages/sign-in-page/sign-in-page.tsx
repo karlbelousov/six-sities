@@ -1,7 +1,6 @@
 function SignInPage(): JSX.Element {
   return (
-    <div>
-      div class="page page--gray page--login"&gt;
+    <div className="page page--gray page--login">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
