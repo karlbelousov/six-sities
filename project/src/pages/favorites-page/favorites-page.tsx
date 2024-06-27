@@ -14,7 +14,7 @@ function FavoritesPage(): JSX.Element {
                 <li className="header__nav-item user">
                   <a
                     className="header__nav-link header__nav-link--profile"
-                    href="#"
+                    href="/"
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
@@ -23,7 +23,7 @@ function FavoritesPage(): JSX.Element {
                   </a>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <a className="header__nav-link" href="/">
                     <span className="header__signout">Sign out</span>
                   </a>
                 </li>
@@ -40,7 +40,7 @@ function FavoritesPage(): JSX.Element {
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
-                    <a className="locations__item-link" href="#">
+                    <a className="locations__item-link" href="/">
                       <span>Amsterdam</span>
                     </a>
                   </div>
@@ -51,7 +51,7 @@ function FavoritesPage(): JSX.Element {
                       <span>Premium</span>
                     </div>
                     <div className="favorites__image-wrapper place-card__image-wrapper">
-                      <a href="#">
+                      <a href="/">
                         <img
                           className="place-card__image"
                           src="img/apartment-small-03.jpg"
@@ -97,7 +97,7 @@ function FavoritesPage(): JSX.Element {
                   </article>
                   <article className="favorites__card place-card">
                     <div className="favorites__image-wrapper place-card__image-wrapper">
-                      <a href="#">
+                      <a href="/">
                         <img
                           className="place-card__image"
                           src="img/room-small.jpg"
@@ -146,7 +146,7 @@ function FavoritesPage(): JSX.Element {
               <li className="favorites__locations-items">
                 <div className="favorites__locations locations locations--current">
                   <div className="locations__item">
-                    <a className="locations__item-link" href="#">
+                    <a className="locations__item-link" href="/">
                       <span>Cologne</span>
                     </a>
                   </div>
@@ -154,7 +154,7 @@ function FavoritesPage(): JSX.Element {
                 <div className="favorites__places">
                   <article className="favorites__card place-card">
                     <div className="favorites__image-wrapper place-card__image-wrapper">
-                      <a href="#">
+                      <a href="/">
                         <img
                           className="place-card__image"
                           src="img/apartment-small-04.jpg"
