@@ -1,9 +1,32 @@
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 
-function OfferCard({ title, type, previewImage, price, isPremium, isFavorite, rating, id }: Offer): JSX.Element {
+type OfferCardProps = Offer & {
+  onMouseMove: (id: number) => void;
+  onMouseLeave: () => void;
+}
+
+function OfferCard({
+  title,
+  type,
+  previewImage,
+  price, isPremium,
+  isFavorite,
+  rating,
+  id,
+  onMouseMove,
+  onMouseLeave
+}: OfferCardProps): JSX.Element {
+  const handleMouseMove = () => {
+    onMouseMove(id as number);
+  };
+
   return (
-    <article className="cities__place-card place-card">
+    <article
+      className="cities__place-card place-card"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={onMouseLeave}
+    >
       {isPremium ? (
         <div className="place-card__mark">
           <span>Premium</span>
