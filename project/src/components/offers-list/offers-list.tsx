@@ -22,7 +22,7 @@ function OffersList({ offers }: OffersListProps): JSX.Element {
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
         <OfferCard
-          key={offer.id as number}
+          key={offer.id}
           {...offer}
           onMouseMove={handleOfferCardMouseMove}
           onMouseLeave={handleOfferCardMouseLeave}
