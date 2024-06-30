@@ -9,6 +9,10 @@ export const offers: Offer[] = [
     previewImage: 'img/apartment-01.jpg',
     isFavorite: true,
     isPremium: true,
+    id: 1,
+    city: {
+      name: 'Paris'
+    }
   },
   {
     title: 'Wood and stone place',
@@ -18,16 +22,23 @@ export const offers: Offer[] = [
     previewImage: 'img/room.jpg',
     isFavorite: false,
     isPremium: false,
-
+    id: 2,
+    city: {
+      name: 'Amsterdam'
+    }
   },
   {
-    title: '>Canal View Prinsengracht',
+    title: 'Canal View Prinsengracht',
     type: 'Apartment',
     rating: 2,
     price: 132,
     previewImage: 'img/apartment-02.jpg',
     isFavorite: true,
     isPremium: true,
+    id: 3,
+    city: {
+      name: 'Dusseldorf'
+    }
   },
   {
     title: 'Nice, cozy, warm big bed apartment',
@@ -37,5 +48,9 @@ export const offers: Offer[] = [
     previewImage: 'img/apartment-03.jpg',
     isFavorite: false,
     isPremium: true,
+    id: 4,
+    city: {
+      name: 'Brussels'
+    }
   }
 ];

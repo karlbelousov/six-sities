@@ -6,4 +6,8 @@ export type Offer = {
   previewImage: string,
   isPremium: boolean,
   isFavorite: boolean,
+  id: number,
+  city: {
+    name: string
+  }
 }

@@ -1,11 +1,7 @@
+import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 
-type OfferCardProps = {
-  offer: Offer;
-}
-
-function OfferCard({offer}: OfferCardProps): JSX.Element {
-  const {title, type, previewImage, price, isPremium, isFavorite, rating} = offer;
+function OfferCard({ title, type, previewImage, price, isPremium, isFavorite, rating, id }: Offer): JSX.Element {
   return (
     <article className="cities__place-card place-card">
       {isPremium ? (
@@ -46,7 +42,7 @@ function OfferCard({offer}: OfferCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/">{title}</a>
+          <a href={`${AppRoute.Room}/${id as number}`}>{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

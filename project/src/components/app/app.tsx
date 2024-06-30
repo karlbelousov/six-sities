@@ -11,8 +11,8 @@ import { Review } from '../../types/review';
 
 
 type AppProps = {
-  offers: Offer[],
-  reviews: Review[]
+  offers: Offer[];
+  reviews: Review[];
 }
 
 function App({offers, reviews}: AppProps): JSX.Element {
@@ -38,7 +38,7 @@ function App({offers, reviews}: AppProps): JSX.Element {
           }
         />
         <Route
-          path={AppRoute.Room}
+          path={`${AppRoute.Room}/:id`}
           element={<RoomPage />}
         />
         <Route
