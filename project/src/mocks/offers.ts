@@ -20,7 +20,7 @@ export const offers: Offer[] = [
     rating: 5,
     price: 80,
     previewImage: 'img/room.jpg',
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     id: 2,
     city: {
@@ -46,7 +46,7 @@ export const offers: Offer[] = [
     rating: 4,
     price: 180,
     previewImage: 'img/apartment-03.jpg',
-    isFavorite: false,
+    isFavorite: true,
     isPremium: true,
     id: 4,
     city: {

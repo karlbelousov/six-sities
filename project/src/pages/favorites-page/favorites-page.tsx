@@ -7,6 +7,23 @@ type FavoritePageProps = {
 }
 
 function FavoritesPage({offers}: FavoritePageProps): JSX.Element {
+  const groupedOffersByCity = offers.reduce<{ [key: string]: Offer[] }>((acc, curr) => {
+    if (curr.isFavorite) {
+      const city = curr.city.name;
+
+      if(!(city in acc)) {
+        acc[city] = [];
+      }
+
+      acc[city].push(curr);
+    }
+
+    return acc;
+  }, {});
+
+  // eslint-disable-next-line
+  console.log(groupedOffersByCity);
+
   return (
     <div className="page">
       <header className="header">
@@ -43,42 +60,22 @@ function FavoritesPage({offers}: FavoritePageProps): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/">
-                      <span>Amsterdam</span>
-                    </a>
+              {Object.entries(groupedOffersByCity).map(([city, groupedOffers]) => (
+                <li className="favorites__locations-items" key={city}>
+                  <div className="favorites__locations locations locations--current">
+                    <div className="locations__item">
+                      <a className="locations__item-link" href="/">
+                        <span>{city}</span>
+                      </a>
+                    </div>
                   </div>
-                </div>
-                <div className="favorites__places">
-                  {offers.map((offer) => (
-                    <OfferCard
-                      key={offer.id}
-                      {...offer}
-                      place='favorites'
-                    />
-                  ))}
-                </div>
-              </li>
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/">
-                      <span>Cologne</span>
-                    </a>
+                  <div className="favorites__places">
+                    {groupedOffers.map((offer) => (
+                      <OfferCard key={offer.id} {...offer} place='favorites' />
+                    ))}
                   </div>
-                </div>
-                <div className="favorites__places">
-                  {offers.map((offer) => (
-                    <OfferCard
-                      key={offer.id}
-                      {...offer}
-                      place='favorites'
-                    />
-                  ))}
-                </div>
-              </li>
+                </li>
+              ))}
             </ul>
           </section>
         </div>
