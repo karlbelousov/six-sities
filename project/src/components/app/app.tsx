@@ -6,19 +6,22 @@ import RoomPage from '../../pages/room-page/room-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/privat-route';
+import { Offer } from '../../types/offer';
+import { Review } from '../../types/review';
 
 
 type AppProps = {
-  placesCount: number;
+  offers: Offer[],
+  reviews: Review[]
 }
 
-function App({placesCount}: AppProps): JSX.Element {
+function App({offers, reviews}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={ <MainPage placesCount={placesCount} />}
+          element={ <MainPage offers={offers} />}
         />
         <Route
           path={AppRoute.login}
