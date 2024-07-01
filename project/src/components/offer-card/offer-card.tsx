@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 
@@ -6,6 +7,8 @@ type OfferCardProps = Offer & {
   onMouseLeave?: () => void;
   place?: 'favorites' | 'cities';
 }
+
+const STARS_COUNT = 5;
 
 function OfferCard({
   title,
@@ -63,12 +66,12 @@ function OfferCard({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${rating / 5 * 100}%` }} />
+            <span style={{ width: `${(rating * 100) / STARS_COUNT}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href={`${AppRoute.Room}/${id}`}>{title}</a>
+          <Link to={`${AppRoute.Room}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
