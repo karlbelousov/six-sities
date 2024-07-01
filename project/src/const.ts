@@ -10,3 +10,5 @@ export enum AuthorizationStatus {
   noAuth = 'NO_AUTH',
   unknown = 'UNKNOW'
 }
+
+export const STARS_COUNT = 5;
