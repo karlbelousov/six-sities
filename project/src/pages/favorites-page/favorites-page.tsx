@@ -21,9 +21,6 @@ function FavoritesPage({offers}: FavoritePageProps): JSX.Element {
     return acc;
   }, {});
 
-  // eslint-disable-next-line
-  console.log(groupedOffersByCity);
-
   return (
     <div className="page">
       <header className="header">
