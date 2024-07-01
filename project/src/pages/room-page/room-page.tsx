@@ -1,4 +1,5 @@
 import Logo from '../../components/logo/logo';
+import ReviewForm from '../../components/reviews-form/review-form';
 
 function RoomPage(): JSX.Element {
   return (
@@ -199,6 +200,7 @@ function RoomPage(): JSX.Element {
                     </div>
                   </li>
                 </ul>
+                <ReviewForm />
               </section>
             </div>
           </div>
