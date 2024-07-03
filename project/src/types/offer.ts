@@ -9,5 +9,8 @@ export type Offer = {
   id: number;
   city: {
     name: string;
+    latitude: number;
+    longitude: number;
+    zoom: number;
   };
 }

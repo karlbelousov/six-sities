@@ -11,7 +11,10 @@ export const offers: Offer[] = [
     isPremium: true,
     id: 1,
     city: {
-      name: 'Paris'
+      name: 'Amsterdam',
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 10
     }
   },
   {
@@ -24,7 +27,10 @@ export const offers: Offer[] = [
     isPremium: false,
     id: 2,
     city: {
-      name: 'Amsterdam'
+      name: 'Amsterdam',
+      latitude: 52.3609553943508,
+      longitude:  4.85309666406198,
+      zoom: 10
     }
   },
   {
@@ -37,7 +43,10 @@ export const offers: Offer[] = [
     isPremium: true,
     id: 3,
     city: {
-      name: 'Dusseldorf'
+      name: 'Amsterdam',
+      latitude: 52.3909553943508,
+      longitude:  4.929309666406198,
+      zoom: 10
     }
   },
   {
@@ -50,7 +59,10 @@ export const offers: Offer[] = [
     isPremium: true,
     id: 4,
     city: {
-      name: 'Brussels'
+      name: 'Amsterdam',
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 10
     }
   }
 ];
