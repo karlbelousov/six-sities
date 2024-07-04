@@ -6,22 +6,23 @@ import RoomPage from '../../pages/room-page/room-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/privat-route';
-import { Offer } from '../../types/offer';
+import { City, Offer } from '../../types/offer';
 import { Review } from '../../types/review';
 
 
 type AppProps = {
   offers: Offer[];
+  city: City;
   reviews: Review[];
 }
 
-function App({offers, reviews}: AppProps): JSX.Element {
+function App({offers, city, reviews}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           index
-          element={ <MainPage offers={offers} />}
+          element={ <MainPage offers={offers} city={city} />}
         />
         <Route
           path={AppRoute.login}

@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
-import { Offer } from '../../types/offer';
+import { City, Offer } from '../../types/offer';
 import { AppRoute } from '../../const';
 
 type MainPageProps = {
   offers: Offer[];
+  city: City;
 }
 
-function MainPage({offers}: MainPageProps): JSX.Element {
+function MainPage({offers, city}: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -112,7 +114,7 @@ function MainPage({offers}: MainPageProps): JSX.Element {
               <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <Map city={city} locations={offers.map((offer) => offer.city.location)} />
             </div>
           </div>
         </div>
