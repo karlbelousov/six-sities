@@ -12,3 +12,5 @@ export enum AuthorizationStatus {
 }
 
 export const STARS_COUNT = 5;
+
+export const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
