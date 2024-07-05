@@ -15,9 +15,10 @@ const defaultCustomIcon = new Icon({
 type MapProps = {
   city: City;
   locations: Location[];
+  place?: 'cities' | 'property';
 }
 
-function Map({city, locations}: MapProps) {
+function Map({city, locations, place = 'cities'}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -35,7 +36,7 @@ function Map({city, locations}: MapProps) {
   }, [map, locations]);
 
   return (
-    <section className="cities__map map" ref={mapRef}></section>
+    <section className={`${place}__map map`} ref={mapRef}></section>
   );
 }
 
