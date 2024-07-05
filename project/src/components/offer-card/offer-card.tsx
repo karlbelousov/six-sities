@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
+import { getStarsWidth } from '../../utils';
 
 type OfferCardProps = Offer & {
   onMouseMove?: (id: number) => void;
   onMouseLeave?: () => void;
   place?: 'favorites' | 'cities';
 }
-
-const STARS_COUNT = 5;
 
 function OfferCard({
   title,
@@ -66,7 +65,7 @@ function OfferCard({
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${(rating * 100) / STARS_COUNT}%` }} />
+            <span style={{ width: getStarsWidth(rating) }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
