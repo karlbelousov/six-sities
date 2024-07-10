@@ -3,6 +3,7 @@ import { City, Location } from '../../types/offer';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
 import { Marker, Icon } from 'leaflet';
+import { CityLocation } from '../../const';
 
 const URL_MARKER_DEFAULT = 'img/pin.svg';
 
@@ -23,6 +24,8 @@ function Map({city, locations, place = 'cities'}: MapProps) {
   const map = useMap(mapRef, city);
 
   useEffect(() => {
+    const markers: Marker[] = [];
+
     if (map) {
       locations.forEach(({latitude: lat, longitude: lng}) => {
         const marker = new Marker({
@@ -31,9 +34,22 @@ function Map({city, locations, place = 'cities'}: MapProps) {
         });
 
         marker.setIcon(defaultCustomIcon).addTo(map);
+
+        markers.push(marker);
       });
+
+      const { latitude: lat, longitude: lng} = CityLocation[city.name];
+      map.setView({lat, lng});
     }
-  }, [map, locations]);
+
+    return () => {
+      if (map) {
+        markers.forEach((marker) => {
+          map.removeLayer(marker);
+        });
+      }
+    };
+  }, [map, city, locations]);
 
   return (
     <section className={`${place}__map map`} ref={mapRef}></section>
