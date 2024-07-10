@@ -3,12 +3,10 @@ import Logo from '../../components/logo/logo';
 import OfferCard from '../../components/offer-card/offer-card';
 import { Offer } from '../../types/offer';
 import { AppRoute } from '../../const';
+import { useAppSelector } from '../../hooks';
 
-type FavoritePageProps = {
-  offers: Offer[];
-}
-
-function FavoritesPage({offers}: FavoritePageProps): JSX.Element {
+function FavoritesPage(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   const groupedOffersByCity = offers.reduce<{ [key: string]: Offer[] }>((acc, curr) => {
     if (curr.isFavorite) {
       const city = curr.city.name;

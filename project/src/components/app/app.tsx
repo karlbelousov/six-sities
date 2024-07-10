@@ -22,7 +22,7 @@ function App({offers, city, reviews}: AppProps): JSX.Element {
       <Routes>
         <Route
           index
-          element={ <MainPage offers={offers} city={city} />}
+          element={ <MainPage />}
         />
         <Route
           path={AppRoute.login}
@@ -34,7 +34,7 @@ function App({offers, city, reviews}: AppProps): JSX.Element {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.Auth}
             >
-              <FavoritesPage offers={offers} />
+              <FavoritesPage />
             </PrivateRoute>
           }
         />
