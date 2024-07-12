@@ -1,4 +1,5 @@
-import { CityName, Location } from './types/offer';
+import { CityName, Location, Offer } from './types/offer';
+import { SortName } from './types/types';
 
 export enum AppRoute {
   Main = '/',
@@ -51,4 +52,20 @@ export const CityLocation: { [key in CityName]: Location} = {
     longitude: 6.776314,
     zoom: 13
   },
+};
+
+export enum Sorting {
+  Popular = 'Popular',
+  PriceIncrease = ' Price: low to high',
+  PriceDecrease = ' Price: high to low',
+  TopRated = ' Top rated first'
+}
+
+export const Comparator: {
+  [key in SortName]: (a: Offer, b: Offer) => number
+} = {
+  Popular: () => 0,
+  PriceIncrease: (a, b) => a.price - b.price,
+  PriceDecrease: (a, b) => b.price - a.price,
+  TopRated: (a, b) => b.rating - a.rating,
 };
