@@ -10,6 +10,7 @@ export type Offer = {
   isFavorite: boolean;
   id: number;
   city: City;
+  location: Location;
 }
 
 export type CityName = typeof cities[number];
