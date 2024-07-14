@@ -2,16 +2,10 @@ import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import OfferCard from '../../components/offer-card/offer-card';
 import ReviewList from '../../components/review-list/review-list';
-import { City, Offer } from '../../types/offer';
-import { Review } from '../../types/review';
+import { reviews } from '../../mocks/review';
+import { city, offers } from '../../mocks/offers';
 
-type RoomPageProps = {
-  reviews: Review[];
-  city: City;
-  nearbyOffers: Offer[];
-}
-
-function RoomPage({reviews, nearbyOffers, city}: RoomPageProps): JSX.Element {
+function RoomPage(): JSX.Element {
   return (
     <div className="page">
       <header className="header">
@@ -177,7 +171,7 @@ function RoomPage({reviews, nearbyOffers, city}: RoomPageProps): JSX.Element {
               <ReviewList reviews={reviews} />
             </div>
           </div>
-          <Map city={city} locations={nearbyOffers.map((offer) => offer.city.location)} place='property' />
+          <Map city={city} locations={offers.map((offer) => offer.city.location)} place='property' />
         </section>
         <div className="container">
           <section className="near-places places">
@@ -185,7 +179,7 @@ function RoomPage({reviews, nearbyOffers, city}: RoomPageProps): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              {nearbyOffers.map((offer) => (
+              {offers.map((offer) => (
                 <OfferCard key={offer.id} {...offer} />
               ))}
             </div>
