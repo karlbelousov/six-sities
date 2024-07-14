@@ -171,7 +171,7 @@ function RoomPage(): JSX.Element {
               <ReviewList reviews={reviews} />
             </div>
           </div>
-          <Map city={city} locations={offers.map((offer) => offer.city.location)} place='property' />
+          <Map city={city} locations={offers.map((offer) => offer.location)} place='property' />
         </section>
         <div className="container">
           <section className="near-places places">
