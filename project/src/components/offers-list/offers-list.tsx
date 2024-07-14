@@ -12,7 +12,6 @@ function OffersList(): JSX.Element {
   const activeSorting = useAppSelector((state) => state.sorting);
   const activeCity = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city.name).sort(Comparator[state.sorting]));
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeOffer, setActiveOffer] = useState<number | null>(null);
 
   const handleOfferCardMouseMove = (id: number) => {
@@ -49,7 +48,8 @@ function OffersList(): JSX.Element {
       <div className="cities__right-section">
         <Map
           city={activeCity}
-          locations={offers.map((offer) => offer.city.location)}
+          locations={offers.map(({ id, location }) => ({id, ...location}))}
+          activeOffer={activeOffer}
         />
       </div>
     </>

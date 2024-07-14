@@ -29,7 +29,7 @@ export const offers: Offer[] = [
     },
     location: {
       latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
+      longitude: 4.95309666406198,
       zoom: 1
     }
   },
@@ -46,12 +46,12 @@ export const offers: Offer[] = [
       name: 'Amsterdam',
       location: {
         latitude: 52.3609553943508,
-        longitude:  4.85309666406198,
+        longitude:  4.75309666406198,
         zoom: 1
       }
     },
     location: {
-      latitude: 52.3909553943508,
+      latitude: 52.4909553943508,
       longitude: 4.85309666406198,
       zoom: 1
     }
@@ -69,7 +69,7 @@ export const offers: Offer[] = [
       name: 'Amsterdam',
       location: {
         latitude: 52.3909553943508,
-        longitude:  4.929309666406198,
+        longitude:  4.859309666406198,
         zoom: 1
       }
     },
@@ -98,7 +98,7 @@ export const offers: Offer[] = [
     },
     location: {
       latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
+      longitude: 4.75309666406198,
       zoom: 1
     }
   }
