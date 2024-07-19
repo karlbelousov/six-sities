@@ -71,3 +71,10 @@ export const Comparator: {
   PriceDecrease: (a, b) => b.price - a.price,
   TopRated: (a, b) => b.rating - a.rating,
 };
+
+export enum ApiRoute {
+  Offers = '/hotels',
+  Favorites = '/favorite',
+  Login = '/login',
+  Logout = '/logout'
+}

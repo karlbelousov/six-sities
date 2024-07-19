@@ -6,11 +6,13 @@ import SortingList from '../sorting-list/sorting-list';
 import { SortName } from '../../types/types';
 import { setSorting } from '../../store/action';
 import { Comparator } from '../../const';
+import Spinner from '../spinner/spinner';
 
 function OffersList(): JSX.Element {
   const dispatch = useAppDispatch();
   const activeSorting = useAppSelector((state) => state.sorting);
   const activeCity = useAppSelector((state) => state.city);
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
   const offers = useAppSelector((state) => state.offers.filter((offer) => offer.city.name === state.city.name).sort(Comparator[state.sorting]));
   const [activeOffer, setActiveOffer] = useState<number | null>(null);
 
@@ -25,6 +27,10 @@ function OffersList(): JSX.Element {
   const onSortingChange = (name: SortName) => {
     dispatch(setSorting(name));
   };
+
+  if (isOffersLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>

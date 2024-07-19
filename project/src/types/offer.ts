@@ -11,6 +11,13 @@ export type Offer = {
   id: number;
   city: City;
   location: Location;
+  bedrooms: number;
+  description: string;
+  goods: [string];
+  host: Host;
+  images: [string];
+  maxAdults: number;
+
 }
 
 export type CityName = typeof cities[number];
@@ -24,4 +31,11 @@ export type Location = {
 export type City = {
   name: CityName;
   location: Location;
+}
+
+export type Host = {
+  avatarUrl: string
+  id: number
+  isPro: boolean
+  name: string
 }

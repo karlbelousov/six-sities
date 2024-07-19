@@ -1,9 +1,7 @@
 import Logo from '../../components/logo/logo';
-import Map from '../../components/map/map';
-import OfferCard from '../../components/offer-card/offer-card';
-import ReviewList from '../../components/review-list/review-list';
-import { reviews } from '../../mocks/review';
-import { city, offers } from '../../mocks/offers';
+// import Map from '../../components/map/map';
+// import OfferCard from '../../components/offer-card/offer-card';
+// import ReviewList from '../../components/review-list/review-list';
 
 function RoomPage(): JSX.Element {
   return (
@@ -168,10 +166,10 @@ function RoomPage(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <ReviewList reviews={reviews} />
+              {/* <ReviewList reviews={reviews} /> */}
             </div>
           </div>
-          <Map city={city} locations={offers.map((offer) => offer.location)} place='property' />
+          {/* <Map city={city} locations={offers.map((offer) => offer.location)} place='property' /> */}
         </section>
         <div className="container">
           <section className="near-places places">
@@ -179,9 +177,9 @@ function RoomPage(): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              {offers.map((offer) => (
+              {/* {offers.map((offer) => (
                 <OfferCard key={offer.id} {...offer} />
-              ))}
+              ))} */}
             </div>
           </section>
         </div>
