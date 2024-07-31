@@ -1,6 +1,32 @@
+import { ChangeEvent, FormEvent, useState } from 'react';
 import Logo from '../../components/logo/logo';
+import { useAppDispatch } from '../../hooks';
+import { loginUser } from '../../store/action';
 
 function LoginPage(): JSX.Element {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const dispatch = useAppDispatch();
+
+  const handleEmailInput = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setEmail(e.target.value);
+  };
+
+  const handleePasswordInput = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setPassword(e.target.value);
+  };
+
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(loginUser({
+      email,
+      password
+    }));
+  };
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -16,7 +42,7 @@ function LoginPage(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form className="login__form form" action="#" method="post" onSubmit={handleFormSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
@@ -25,6 +51,8 @@ function LoginPage(): JSX.Element {
                   name="email"
                   placeholder="Email"
                   required
+                  value={email}
+                  onChange={handleEmailInput}
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -35,6 +63,8 @@ function LoginPage(): JSX.Element {
                   name="password"
                   placeholder="Password"
                   required
+                  value={password}
+                  onChange={handleePasswordInput}
                 />
               </div>
               <button

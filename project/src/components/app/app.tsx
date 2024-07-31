@@ -1,30 +1,30 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import {Routes, Route } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import RoomPage from '../../pages/room-page/room-page';
 import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
+import HistoryRouter from '../history-router/history-router';
+import history from '../../history';
 
 function App(): JSX.Element {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={history}>
       <Routes>
         <Route
           index
           element={ <MainPage />}
         />
         <Route
-          path={AppRoute.login}
+          path={AppRoute.Login}
           element={<LoginPage />}
         />
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute
-              authorizationStatus={AuthorizationStatus.Auth}
-            >
+            <PrivateRoute>
               <FavoritesPage />
             </PrivateRoute>
           }
@@ -38,7 +38,7 @@ function App(): JSX.Element {
           element={<NotFoundPage />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
 
   );
 }

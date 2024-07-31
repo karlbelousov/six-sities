@@ -3,7 +3,7 @@ import { SortName } from './types/types';
 
 export enum AppRoute {
   Main = '/',
-  login = '/login',
+  Login = '/login',
   Favorites = '/favorites',
   Room = '/offer'
 }
@@ -18,6 +18,7 @@ export const months = ['January', 'February', 'March', 'April', 'May', 'June', '
 
 export const STARS_COUNT = 5;
 export const MAX_PERCENT_STARS_WIDTH = 100;
+export const TIMEOUT_SHOW_ERROR = 2000;
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
 export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 

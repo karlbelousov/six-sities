@@ -1,9 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { City, Offer } from '../types/offer';
-import { CityLocation, Sorting, cities } from '../const';
+import { AuthorizationStatus, CityLocation, Sorting, cities } from '../const';
 import { SortName } from '../types/types';
-import {setCity, setError, setSorting } from './action';
-import { fetchOffers } from './api-action';
+import { fetchOffers, fetchUserStatus, loginUser, setCity, setError, setSorting } from './action';
+import { User } from '../types/user';
 
 type State = {
   city: City;
@@ -11,6 +11,8 @@ type State = {
   sorting: SortName;
   error: string | null;
   isOffersLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
+  user: User['email'];
 }
 
 const initialState: State = {
@@ -21,7 +23,9 @@ const initialState: State = {
   offers: [],
   sorting: Sorting.Popular,
   error: null,
-  isOffersLoading: false
+  isOffersLoading: false,
+  authorizationStatus: AuthorizationStatus.noAuth,
+  user: ''
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -31,6 +35,12 @@ const reducer = createReducer(initialState, (builder) => {
         name: action.payload,
         location: CityLocation[action.payload]
       };
+    })
+    .addCase(setSorting, (state, action) => {
+      state.sorting = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     })
     .addCase(fetchOffers.pending, (state) => {
       state.isOffersLoading = true;
@@ -42,11 +52,16 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchOffers.rejected, (state) => {
       state.isOffersLoading = false;
     })
-    .addCase(setSorting, (state, action) => {
-      state.sorting = action.payload;
+    .addCase(fetchUserStatus.fulfilled, (state, action) => {
+      state.user = action.payload.email;
+      state.authorizationStatus = AuthorizationStatus.Auth;
     })
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
+    .addCase(fetchUserStatus.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.noAuth;
+    })
+    .addCase(loginUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.authorizationStatus = AuthorizationStatus.Auth;
     });
 });
 
