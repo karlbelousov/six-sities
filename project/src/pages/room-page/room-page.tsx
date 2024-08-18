@@ -1,89 +1,89 @@
-import Logo from '../../components/logo/logo';
-// import Map from '../../components/map/map';
-// import OfferCard from '../../components/offer-card/offer-card';
-// import ReviewList from '../../components/review-list/review-list';
+import { useParams } from 'react-router-dom';
+import Spinner from '../../components/spinner/spinner';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { fetchComments, fetchNearbyOffers, fetchOffer } from '../../store/action';
+import Header from '../../components/header/header';
+import { getStarsWidth } from '../../utils';
+import Map from '../../components/map/map';
+import OfferCard from '../../components/offer-card/offer-card';
+import ReviewList from '../../components/review-list/review-list';
 
-function RoomPage(): JSX.Element {
+function RoomPage(): JSX.Element | null {
+  const params = useParams();
+  const dispatch = useAppDispatch();
+  const authorisationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOfferLoading = useAppSelector((state) => state.isOffersLoading);
+  const offer = useAppSelector((state) => state.offer);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+  const comments = useAppSelector((state) => state.comments);
+
+  useEffect(() => {
+    const { id } = params;
+    if (id) {
+      const parsedId = Number(id);
+      dispatch(fetchOffer(parsedId));
+      dispatch(fetchComments(parsedId));
+      dispatch(fetchNearbyOffers(parsedId));
+    }
+  }, [params, dispatch]);
+
+  if (!offer) {
+    return null;
+  }
+
+  if (isOfferLoading) {
+    <Spinner />;
+  }
+
+  const {
+    id,
+    images,
+    isPremium,
+    title,
+    rating,
+    type,
+    bedrooms,
+    maxAdults,
+    price,
+    goods,
+    host,
+    description,
+    city,
+    location
+  } = offer;
+
+  const locations = nearbyOffers.map(({ id: nearbyId, location: nearbyLocation, }) => ({ id: nearbyId, ...nearbyLocation }));
+  locations.push({ id, ...location });
+
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo />
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a
-                    className="header__nav-link header__nav-link--profile"
-                    href="/"
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__login">Sign in</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img
-                  className="property__image"
-                  src="img/room.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="property__image-wrapper">
-                <img
-                  className="property__image"
-                  src="img/apartment-01.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="property__image-wrapper">
-                <img
-                  className="property__image"
-                  src="img/apartment-02.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="property__image-wrapper">
-                <img
-                  className="property__image"
-                  src="img/apartment-03.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="property__image-wrapper">
-                <img
-                  className="property__image"
-                  src="img/studio-01.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <div className="property__image-wrapper">
-                <img
-                  className="property__image"
-                  src="img/apartment-01.jpg"
-                  alt="Photo studio"
-                />
-              </div>
+              {images.map((image) => (
+                <div key={image} className="property__image-wrapper">
+                  <img
+                    className="property__image"
+                    src={image}
+                    alt={title}
+                  />
+                </div>
+              ))}
             </div>
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <div className="property__mark">
-                <span>Premium</span>
-              </div>
+              {isPremium && (
+                <div className="property__mark">
+                  <span>Premium</span>
+                </div>
+              )}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
+                  {title}
                 </h1>
                 <button
                   className="property__bookmark-button button"
@@ -101,75 +101,65 @@ function RoomPage(): JSX.Element {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{ width: '80%' }} />
+                  <span style={{ width: getStarsWidth(rating) }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">
-                  4.8
+                  {rating}
                 </span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  Apartment
+                  {type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                  {bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  Max {maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">€120</b>
+                <b className="property__price-value">€{price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
-                <ul className="property__inside-list">
-                  <li className="property__inside-item">Wi-Fi</li>
-                  <li className="property__inside-item">Washing machine</li>
-                  <li className="property__inside-item">Towels</li>
-                  <li className="property__inside-item">Heating</li>
-                  <li className="property__inside-item">Coffee machine</li>
-                  <li className="property__inside-item">Baby seat</li>
-                  <li className="property__inside-item">Kitchen</li>
-                  <li className="property__inside-item">Dishwasher</li>
-                  <li className="property__inside-item">Cabel TV</li>
-                  <li className="property__inside-item">Fridge</li>
-                </ul>
+                {goods.length > 0 && (
+                  <ul className="property__inside-list">
+                    {goods.map((good) => (
+                      <li key={good} className="property__inside-item">
+                        {good}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                  <div className={`property__avatar-wrapper ${host.isPro ? 'property__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
                     <img
                       className="property__avatar user__avatar"
-                      src="img/avatar-angelina.jpg"
+                      src={host.avatarUrl}
                       width={74}
                       height={74}
-                      alt="Host avatar"
+                      alt={host.name}
                     />
                   </div>
-                  <span className="property__user-name">Angelina</span>
-                  <span className="property__user-status">Pro</span>
+                  <span className="property__user-name">{host.name}</span>
+                  {host.isPro && <span className="property__user-status">Pro</span>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    A quiet cozy and picturesque that hides behind a a river by
-                    the unique lightness of Amsterdam. The building is green and
-                    from 18th century.
-                  </p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand
-                    Square and National Opera, but where the bustle of the city
-                    comes to rest in this alley flowery and colorful.
+                    {description}
                   </p>
                 </div>
               </div>
-              {/* <ReviewList reviews={reviews} /> */}
+              <ReviewList reviews={comments} authorisationStatus={authorisationStatus} />
             </div>
           </div>
-          {/* <Map city={city} locations={offers.map((offer) => offer.location)} place='property' /> */}
+          <Map city={city} locations={locations} activeOffer={id} place='property' />
         </section>
         <div className="container">
           <section className="near-places places">
@@ -177,9 +167,9 @@ function RoomPage(): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              {/* {offers.map((offer) => (
-                <OfferCard key={offer.id} {...offer} />
-              ))} */}
+              {nearbyOffers.map((nearbyOffer) => (
+                <OfferCard key={nearbyOffer.id} {...nearbyOffer} />
+              ))}
             </div>
           </section>
         </div>

@@ -2,17 +2,21 @@ import { createReducer } from '@reduxjs/toolkit';
 import { City, Offer } from '../types/offer';
 import { AuthorizationStatus, CityLocation, Sorting, cities } from '../const';
 import { SortName } from '../types/types';
-import { fetchOffers, fetchUserStatus, loginUser, setCity, setError, setSorting } from './action';
+import { fetchComments, fetchNearbyOffers, fetchOffer, fetchOffers, fetchUserStatus, loginUser, logoutUser, setCity, setError, setSorting } from './action';
 import { User } from '../types/user';
+import { Review } from '../types/review';
 
 type State = {
   city: City;
   offers: Offer[];
+  offer: Offer | null;
   sorting: SortName;
   error: string | null;
   isOffersLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   user: User['email'];
+  nearbyOffers: Offer[];
+  comments: Review[];
 }
 
 const initialState: State = {
@@ -21,11 +25,14 @@ const initialState: State = {
     location: CityLocation[cities[0]]
   },
   offers: [],
+  offer: null,
   sorting: Sorting.Popular,
   error: null,
   isOffersLoading: false,
   authorizationStatus: AuthorizationStatus.noAuth,
-  user: ''
+  user: '',
+  nearbyOffers: [],
+  comments: []
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -62,6 +69,25 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loginUser.fulfilled, (state, action) => {
       state.user = action.payload;
       state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(logoutUser.fulfilled, (state) => {
+      state.authorizationStatus = AuthorizationStatus.noAuth;
+    })
+    .addCase(fetchOffer.pending, (state) => {
+      state.isOffersLoading = true;
+    })
+    .addCase(fetchOffer.fulfilled, (state, action) => {
+      state.offer = action.payload;
+      state.isOffersLoading = false;
+    })
+    .addCase(fetchOffer.rejected, (state) => {
+      state.isOffersLoading = false;
+    })
+    .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
+      state.nearbyOffers = action.payload;
+    })
+    .addCase(fetchComments.fulfilled, (state, action) => {
+      state.comments = action.payload;
     });
 });
 

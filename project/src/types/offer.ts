@@ -1,8 +1,9 @@
 import { cities } from "../const";
+import { User } from "./user";
 
 export type Offer = {
   title: string;
-  type: string;
+  type: 'apartment' | 'room' | 'house' | 'hotel';
   rating: number;
   price: number;
   previewImage: string;
@@ -14,7 +15,7 @@ export type Offer = {
   bedrooms: number;
   description: string;
   goods: [string];
-  host: Host;
+  host: User;
   images: [string];
   maxAdults: number;
 
@@ -31,11 +32,4 @@ export type Location = {
 export type City = {
   name: CityName;
   location: Location;
-}
-
-export type Host = {
-  avatarUrl: string
-  id: number
-  isPro: boolean
-  name: string
 }

@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { logoutUser } from '../../store/action';
 
 function Header() {
   const authorisationStatus = useAppSelector((state) => state.authorizationStatus);
   const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
+  const handleLogoutUser = () => {
+    dispatch(logoutUser());
+  };
 
   return (
     <header className="header">
@@ -31,14 +37,26 @@ function Header() {
                 </li>
               )}
               <li className="header__nav-item">
-                <Link
-                  className="header__nav-link"
-                  to={AppRoute.Login}
-                >
-                  <span className="header__signout">
-                    {authorisationStatus === AuthorizationStatus.Auth ? 'Sign out' : 'Sign in'}
-                  </span>
-                </Link>
+                {authorisationStatus === AuthorizationStatus.Auth ? (
+                  <Link
+                    className="header__nav-link"
+                    onClick={handleLogoutUser}
+                    to={''}
+                  >
+                    <span className="header__signout">
+                      Sign out
+                    </span>
+                  </Link>
+                ) : (
+                  <Link
+                    className="header__nav-link"
+                    to={AppRoute.Login}
+                  >
+                    <span className="header__signout">
+                      Sign in
+                    </span>
+                  </Link>
+                )}
               </li>
             </ul>
           </nav>
