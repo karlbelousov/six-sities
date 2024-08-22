@@ -9,15 +9,17 @@ import Map from '../../components/map/map';
 import OfferCard from '../../components/offer-card/offer-card';
 import ReviewList from '../../components/review-list/review-list';
 import { ReviewAuth } from '../../types/review';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getComments, getIsOfferLoading, getNearbyOffers, getOffer } from '../../store/site-data/selectors';
 
 function RoomPage(): JSX.Element | null {
   const params = useParams();
   const dispatch = useAppDispatch();
-  const authorisationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
-  const offer = useAppSelector((state) => state.offer);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
-  const comments = useAppSelector((state) => state.comments);
+  const authorisationStatus = useAppSelector(getAuthorizationStatus);
+  const isOfferLoading = useAppSelector(getIsOfferLoading);
+  const offer = useAppSelector(getOffer);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const comments = useAppSelector(getComments);
 
   useEffect(() => {
     const { id } = params;

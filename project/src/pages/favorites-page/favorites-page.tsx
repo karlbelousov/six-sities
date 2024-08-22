@@ -4,9 +4,10 @@ import OfferCard from '../../components/offer-card/offer-card';
 import { Offer } from '../../types/offer';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { getOffers } from '../../store/site-data/selectors';
 
 function FavoritesPage(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
   const groupedOffersByCity = offers.reduce<{ [key: string]: Offer[] }>((acc, curr) => {
     if (curr.isFavorite) {
       const city = curr.city.name;

@@ -3,10 +3,11 @@ import Logo from '../../components/logo/logo';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutUser } from '../../store/action';
+import { getAuthorizationStatus, getUser } from '../../store/user-process/selectors';
 
 function Header() {
-  const authorisationStatus = useAppSelector((state) => state.authorizationStatus);
-  const user = useAppSelector((state) => state.user);
+  const authorisationStatus = useAppSelector(getAuthorizationStatus);
+  const user = useAppSelector(getUser);
   const dispatch = useAppDispatch();
 
   const handleLogoutUser = () => {
