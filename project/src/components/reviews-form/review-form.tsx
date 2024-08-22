@@ -1,9 +1,14 @@
-import { ChangeEvent, Fragment, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
 import { STARS_COUNT } from '../../const';
+import { ReviewAuth } from '../../types/review';
 
-function ReviewForm() {
+type ReviewFormProps = {
+  onFormSubmit: (formData: Omit<ReviewAuth, 'id'>) => void;
+}
+
+function ReviewForm({onFormSubmit}: ReviewFormProps) {
   const [text, setText] = useState('');
-  const [rating, setRating] = useState<number | null>(null);
+  const [rating, setRating] = useState<number>(0);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setRating(Number(e.target.value));
@@ -13,8 +18,17 @@ function ReviewForm() {
     setText(e.target.value);
   };
 
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    onFormSubmit({
+      comment: text,
+      rating
+    });
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" onSubmit={handleFormSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>

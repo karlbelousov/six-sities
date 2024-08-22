@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { City, Offer } from '../types/offer';
 import { AuthorizationStatus, CityLocation, Sorting, cities } from '../const';
 import { SortName } from '../types/types';
-import { fetchComments, fetchNearbyOffers, fetchOffer, fetchOffers, fetchUserStatus, loginUser, logoutUser, setCity, setError, setSorting } from './action';
+import { fetchComments, fetchNearbyOffers, fetchOffer, fetchOffers, fetchUserStatus, loginUser, logoutUser, postComment, setCity, setError, setSorting } from './action';
 import { User } from '../types/user';
 import { Review } from '../types/review';
 
@@ -13,6 +13,7 @@ type State = {
   sorting: SortName;
   error: string | null;
   isOffersLoading: boolean;
+  isOfferLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   user: User['email'];
   nearbyOffers: Offer[];
@@ -29,6 +30,7 @@ const initialState: State = {
   sorting: Sorting.Popular,
   error: null,
   isOffersLoading: false,
+  isOfferLoading: false,
   authorizationStatus: AuthorizationStatus.noAuth,
   user: '',
   nearbyOffers: [],
@@ -74,19 +76,22 @@ const reducer = createReducer(initialState, (builder) => {
       state.authorizationStatus = AuthorizationStatus.noAuth;
     })
     .addCase(fetchOffer.pending, (state) => {
-      state.isOffersLoading = true;
+      state.isOfferLoading = true;
     })
     .addCase(fetchOffer.fulfilled, (state, action) => {
       state.offer = action.payload;
-      state.isOffersLoading = false;
+      state.isOfferLoading = false;
     })
     .addCase(fetchOffer.rejected, (state) => {
-      state.isOffersLoading = false;
+      state.isOfferLoading = false;
     })
     .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
       state.nearbyOffers = action.payload;
     })
     .addCase(fetchComments.fulfilled, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(postComment.fulfilled, (state, action) => {
       state.comments = action.payload;
     });
 });

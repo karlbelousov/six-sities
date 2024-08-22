@@ -6,7 +6,7 @@ import { AxiosError, AxiosInstance } from 'axios';
 import { ApiRoute, AppRoute, HttpCode } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { AppDispatch } from '../types/state';
-import { Review } from '../types/review';
+import { Review, ReviewAuth } from '../types/review';
 
 export const Action = {
   SET_CITY: 'city/set',
@@ -20,6 +20,7 @@ export const Action = {
   REDIRECT_TO_ROUTE: 'user/redirectToRoute',
   FETCH_NEARBY_OFFERS: 'offers/fetch-nearby',
   FETCH_COMMENTS: 'offer/fetch-comments',
+  POST_COMMENT: 'offer/post-comment',
 };
 
 export const setCity = createAction<CityName>(Action.SET_CITY);
@@ -92,6 +93,14 @@ export const fetchComments = createAsyncThunk<Review[], Offer['id'], { extra: Ax
   Action.FETCH_COMMENTS,
   async (id, { extra: api }) => {
     const { data } = await api.get<Review[]>(`${ApiRoute.Comments}/${id}`);
+
+    return data;
+  });
+
+export const postComment = createAsyncThunk<Review[], ReviewAuth, { extra: AxiosInstance }>(
+  Action.POST_COMMENT,
+  async ({ id, comment, rating }, { extra: api }) => {
+    const { data } = await api.post<Review[]>(`${ApiRoute.Comments}/${id}`, { comment, rating });
 
     return data;
   });

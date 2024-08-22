@@ -2,18 +2,19 @@ import { useParams } from 'react-router-dom';
 import Spinner from '../../components/spinner/spinner';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { fetchComments, fetchNearbyOffers, fetchOffer } from '../../store/action';
+import { fetchComments, fetchNearbyOffers, fetchOffer, postComment } from '../../store/action';
 import Header from '../../components/header/header';
 import { getStarsWidth } from '../../utils';
 import Map from '../../components/map/map';
 import OfferCard from '../../components/offer-card/offer-card';
 import ReviewList from '../../components/review-list/review-list';
+import { ReviewAuth } from '../../types/review';
 
 function RoomPage(): JSX.Element | null {
   const params = useParams();
   const dispatch = useAppDispatch();
   const authorisationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOfferLoading = useAppSelector((state) => state.isOffersLoading);
+  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
   const offer = useAppSelector((state) => state.offer);
   const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
   const comments = useAppSelector((state) => state.comments);
@@ -55,6 +56,10 @@ function RoomPage(): JSX.Element | null {
 
   const locations = nearbyOffers.map(({ id: nearbyId, location: nearbyLocation, }) => ({ id: nearbyId, ...nearbyLocation }));
   locations.push({ id, ...location });
+
+  const onFormSubmit = (formData: Omit<ReviewAuth, 'id'>) => {
+    dispatch(postComment({ id, ...formData }));
+  };
 
   return (
     <div className="page">
@@ -156,7 +161,7 @@ function RoomPage(): JSX.Element | null {
                   </p>
                 </div>
               </div>
-              <ReviewList reviews={comments} authorisationStatus={authorisationStatus} />
+              <ReviewList reviews={comments} authorisationStatus={authorisationStatus} onSubmit={onFormSubmit} />
             </div>
           </div>
           <Map city={city} locations={locations} activeOffer={id} place='property' />
