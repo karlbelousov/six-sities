@@ -1,19 +1,15 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { CityName, Offer } from '../types/offer';
-import { SortName } from '../types/types';
 import { User, UserAuth } from '../types/user';
 import { AxiosError, AxiosInstance } from 'axios';
 import { ApiRoute, AppRoute, HttpCode } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { AppDispatch } from '../types/state';
 import { Review, ReviewAuth } from '../types/review';
+import { Offer } from '../types/offer';
 
 export const Action = {
-  SET_CITY: 'city/set',
   FETCH_OFFERS: 'offers/fetch',
   FETCH_OFFER: 'offer/fetch',
-  SET_SORTING: 'sorting/set',
-  ERROR_OFFERS: 'offers/error',
   FETCH_USER_STATUS: 'user/fetch-status',
   LOGIN_USER: 'user/login',
   LOGOUT_USER: 'user/logout',
@@ -23,9 +19,6 @@ export const Action = {
   POST_COMMENT: 'offer/post-comment',
 };
 
-export const setCity = createAction<CityName>(Action.SET_CITY);
-export const setSorting = createAction<SortName>(Action.SET_SORTING);
-export const setError = createAction<string | null>(Action.ERROR_OFFERS);
 export const redirectToRoute = createAction<AppRoute>(Action.REDIRECT_TO_ROUTE);
 
 export const fetchOffers = createAsyncThunk<Offer[], undefined, { extra: AxiosInstance }>(

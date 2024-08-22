@@ -9,14 +9,20 @@ export enum AppRoute {
   NotFound = '/404'
 }
 
+export enum StoreSlice {
+  SiteData = 'SITE_DATA',
+  SiteProcess = 'SITE_PROCESS',
+  UserProcess = 'USER_PROCESS',
+}
+
 export enum HttpCode {
   NotFound = 404
 }
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
-  noAuth = 'NO_AUTH',
-  unknown = 'UNKNOW'
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOW'
 }
 
 export const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] as const;
