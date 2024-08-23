@@ -14,9 +14,7 @@ function MainPage(): JSX.Element {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <OffersList />
-          </div>
+          <OffersList />
         </div>
       </main>
     </div>
