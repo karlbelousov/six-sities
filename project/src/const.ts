@@ -16,7 +16,8 @@ export enum StoreSlice {
 }
 
 export enum HttpCode {
-  NotFound = 404
+  NotFound = 404,
+  NoAuth = 401,
 }
 
 export enum AuthorizationStatus {
@@ -86,7 +87,7 @@ export const Comparator: {
 
 export enum ApiRoute {
   Offers = '/hotels',
-  Favorites = '/favorite',
+  Favorite = '/favorite',
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments'

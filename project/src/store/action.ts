@@ -5,11 +5,13 @@ import { ApiRoute, AppRoute, HttpCode } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { AppDispatch } from '../types/state';
 import { Review, ReviewAuth } from '../types/review';
-import { Offer } from '../types/offer';
+import { FavoriteAuth, Offer } from '../types/offer';
 
 export const Action = {
   FETCH_OFFERS: 'offers/fetch',
   FETCH_OFFER: 'offer/fetch',
+  FETCH_FAVORITE_OFFERS: 'offers/fetch-favorite',
+  POST_FAVORITE: 'offer/post-favorite',
   FETCH_USER_STATUS: 'user/fetch-status',
   LOGIN_USER: 'user/login',
   LOGOUT_USER: 'user/logout',
@@ -98,4 +100,28 @@ export const postComment = createAsyncThunk<Review[], ReviewAuth, { extra: Axios
     return data;
   });
 
+export const fetchFavoriteOffers = createAsyncThunk<Offer[], undefined, { extra: AxiosInstance }>(
+  Action.FETCH_FAVORITE_OFFERS,
+  async (_, { extra: api }) => {
+    const { data } = await api.get<Offer[]>(ApiRoute.Favorite);
 
+    return data;
+  });
+
+export const postFavorite = createAsyncThunk<Offer, FavoriteAuth, { extra: AxiosInstance; dispatch: AppDispatch }>(
+  Action.POST_FAVORITE,
+  async ({ id, status }, { extra: api, dispatch }) => {
+    try {
+      const { data } = await api.post<Offer>(`${ApiRoute.Favorite}/${id}/${status}`);
+
+      return data;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+
+      if (axiosError.response?.status === HttpCode.NoAuth) {
+        dispatch(redirectToRoute(AppRoute.Login));
+      }
+
+      return Promise.reject(error);
+    }
+  });

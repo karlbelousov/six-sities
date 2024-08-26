@@ -18,3 +18,6 @@ export const getOffer = ({ [StoreSlice.SiteData]: SITE_DATA }: State): Offer | n
 
 export const getNearbyOffers = ({ [StoreSlice.SiteData]: SITE_DATA }: State): Offer[] => SITE_DATA.nearbyOffers;
 export const getComments = ({ [StoreSlice.SiteData]: SITE_DATA }: State): Review[] => SITE_DATA.comments;
+
+export const getIsFavoriteOffersLoading = ({ [StoreSlice.SiteData]: SITE_DATA }: State): boolean => SITE_DATA.isFavoriteOffersLoading;
+export const getFavoriteOffers = ({ [StoreSlice.SiteData]: SITE_DATA}: State): Offer[] => SITE_DATA.favoriteOffers;

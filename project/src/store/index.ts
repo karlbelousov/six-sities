@@ -1,6 +1,6 @@
 import { configureStore} from '@reduxjs/toolkit';
 import { createApi } from '../services/api';
-import { fetchOffers, fetchUserStatus } from './action';
+import { fetchFavoriteOffers, fetchOffers, fetchUserStatus } from './action';
 import { redirect } from './middlewares/redirect';
 import { rootReducer } from './root-reducer';
 
@@ -18,5 +18,6 @@ export const store = configureStore({
 
 store.dispatch(fetchUserStatus());
 store.dispatch(fetchOffers());
+store.dispatch(fetchFavoriteOffers());
 
 

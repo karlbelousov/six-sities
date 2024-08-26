@@ -11,6 +11,7 @@ import ReviewList from '../../components/review-list/review-list';
 import { ReviewAuth } from '../../types/review';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getComments, getIsOfferLoading, getNearbyOffers, getOffer } from '../../store/site-data/selectors';
+import Bookmark from '../../components/bookmark/bookmark';
 
 function RoomPage(): JSX.Element | null {
   const params = useParams();
@@ -43,6 +44,7 @@ function RoomPage(): JSX.Element | null {
     id,
     images,
     isPremium,
+    isFavorite,
     title,
     rating,
     type,
@@ -92,19 +94,7 @@ function RoomPage(): JSX.Element | null {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button
-                  className="property__bookmark-button button"
-                  type="button"
-                >
-                  <svg
-                    className="property__bookmark-icon"
-                    width={31}
-                    height={33}
-                  >
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <Bookmark id={id} isActive={isFavorite} place='property' />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">

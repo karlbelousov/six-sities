@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 import { getStarsWidth } from '../../utils';
+import Bookmark from '../bookmark/bookmark';
+import { memo } from 'react';
 
 type OfferCardProps = Offer & {
   onMouseMove?: (id: number) => void;
@@ -54,14 +56,7 @@ function OfferCard({
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button${isFavorite ? '--active' : ''} button`}
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <Bookmark id={id} isActive={isFavorite} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -78,4 +73,4 @@ function OfferCard({
   );
 }
 
-export default OfferCard;
+export default memo(OfferCard, (prevProps, nextProps) => prevProps.isFavorite === nextProps.isFavorite);

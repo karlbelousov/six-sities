@@ -18,8 +18,9 @@ export type Offer = {
   host: User;
   images: [string];
   maxAdults: number;
-
 }
+
+export type FavoriteAuth = Pick<Offer, 'id'> & { status: 1 | 0 };
 
 export type CityName = typeof cities[number];
 
