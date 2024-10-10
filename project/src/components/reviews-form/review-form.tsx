@@ -1,14 +1,16 @@
-import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
-import { STARS_COUNT } from '../../const';
+import { ChangeEvent, FormEvent, Fragment, useEffect, useState } from 'react';
+import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH, STARS_COUNT, SubmitStatus } from '../../const';
 import { ReviewAuth } from '../../types/review';
 
 type ReviewFormProps = {
   onFormSubmit: (formData: Omit<ReviewAuth, 'id'>) => void;
+  submitStatus: SubmitStatus;
 }
 
-function ReviewForm({onFormSubmit}: ReviewFormProps) {
+function ReviewForm({onFormSubmit, submitStatus}: ReviewFormProps) {
   const [text, setText] = useState('');
   const [rating, setRating] = useState<number>(0);
+  const isSubmiting = submitStatus === SubmitStatus.Pending;
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setRating(Number(e.target.value));
@@ -26,6 +28,15 @@ function ReviewForm({onFormSubmit}: ReviewFormProps) {
       rating
     });
   };
+
+
+  useEffect(() => {
+    if (submitStatus === SubmitStatus.Fullfilled) {
+      setText('');
+      setRating(0);
+    }
+
+  }, [submitStatus]);
 
   return (
     <form className="reviews__form form" onSubmit={handleFormSubmit}>
@@ -71,6 +82,7 @@ function ReviewForm({onFormSubmit}: ReviewFormProps) {
           with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
+          disabled={isSubmiting || !rating || (text.length < MIN_COMMENT_LENGTH || text.length > MAX_COMMENT_LENGTH)}
           className="reviews__submit form__submit button"
           type="submit"
         >

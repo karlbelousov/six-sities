@@ -1,4 +1,4 @@
-import { AuthorizationStatus } from '../const';
+import { AuthorizationStatus, SubmitStatus } from '../const';
 import {store} from '../store/index';
 import { City, Offer } from './offer';
 import { Review } from './review';
@@ -12,6 +12,7 @@ export type SiteData = {
   isOfferLoading: boolean;
   nearbyOffers: Offer[];
   comments: Review[];
+  commentStatus: SubmitStatus;
   favoriteOffers: Offer[];
   isFavoriteOffersLoading: boolean;
 };

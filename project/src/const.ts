@@ -92,3 +92,17 @@ export enum ApiRoute {
   Logout = '/logout',
   Comments = '/comments'
 }
+
+export enum SubmitStatus {
+  Still = 'STILL',
+  Pending = 'PENDING',
+  Fullfilled = 'FULLFILLED',
+  Rejected = 'REJECTED'
+}
+
+export const MIN_COMMENT_LENGTH = 50;
+export const MAX_COMMENT_LENGTH = 300;
+export const MAX_COMMENTS = 10;
+
+export const INVALID_PASSWORD_MESSAGE = 'Password should contains at least one letter and digit';
+export const VALID_PASSWORD_REGEXP = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;

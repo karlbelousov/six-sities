@@ -1,19 +1,20 @@
 import { Review, ReviewAuth } from '../../types/review';
 import ReviewItem from '../review-item/review-item';
 import ReviewForm from '../../components/reviews-form/review-form';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, SubmitStatus } from '../../const';
 
 type ReviewListProps = {
   reviews: Review[];
   authorisationStatus: AuthorizationStatus;
   onSubmit: (formData: Omit<ReviewAuth, 'id'>) => void;
+  submitStatus: SubmitStatus;
 }
 
-function ReviewList({ reviews, authorisationStatus, onSubmit }: ReviewListProps) {
+function ReviewList({ reviews, authorisationStatus, onSubmit, submitStatus }: ReviewListProps) {
   if (reviews.length === 0) {
     return (
       <section className="property__reviews reviews">
-        {authorisationStatus === AuthorizationStatus.Auth && <ReviewForm onFormSubmit={onSubmit} />}
+        {authorisationStatus === AuthorizationStatus.Auth && <ReviewForm onFormSubmit={onSubmit} submitStatus={submitStatus} />}
       </section>
     );
   }
@@ -28,7 +29,7 @@ function ReviewList({ reviews, authorisationStatus, onSubmit }: ReviewListProps)
           <ReviewItem key={review.id} {...review} />
         ))}
       </ul>
-      {authorisationStatus === AuthorizationStatus.Auth && <ReviewForm onFormSubmit={onSubmit} />}
+      {authorisationStatus === AuthorizationStatus.Auth && <ReviewForm onFormSubmit={onSubmit} submitStatus={submitStatus} />}
     </section>
   );
 }

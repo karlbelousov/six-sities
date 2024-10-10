@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
-import { getStarsWidth } from '../../utils';
+import { capitalize, getStarsWidth } from '../../utils';
 import Bookmark from '../bookmark/bookmark';
 import { memo } from 'react';
 
@@ -67,7 +67,7 @@ function OfferCard({
         <h2 className="place-card__name">
           <Link to={`${AppRoute.Room}/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{capitalize(type)}</p>
       </div>
     </article>
   );

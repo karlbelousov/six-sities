@@ -1,5 +1,7 @@
-import { useAppDispatch } from '../../hooks';
+import { AuthorizationStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postFavorite } from '../../store/action';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { Offer } from '../../types/offer';
 
 type BookmarkProps = {
@@ -9,6 +11,7 @@ type BookmarkProps = {
 }
 
 function Bookmark({id, isActive, place = 'place-card'}: BookmarkProps) {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
   const handleButtonClick = () => {
@@ -21,7 +24,7 @@ function Bookmark({id, isActive, place = 'place-card'}: BookmarkProps) {
   return (
     <button
       onClick={handleButtonClick}
-      className={`${place}__bookmark-button button${isActive ? ` ${place}__bookmark-button--active` : ''
+      className={`${place}__bookmark-button button${isActive && authorizationStatus === AuthorizationStatus.Auth ? ` ${place}__bookmark-button--active` : ''
       }`}
       type="button"
     >

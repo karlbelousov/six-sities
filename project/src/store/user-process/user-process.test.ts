@@ -1,6 +1,6 @@
 import { userProcess } from './user-process';
 import { AuthorizationStatus } from '../../const';
-import { fetchUserStatus, loginUser } from '../actions';
+import { fetchUserStatus, loginUser, logoutUser } from '../action';
 
 const email = 'abc123@gmail.com';
 
@@ -42,6 +42,19 @@ describe('Reducer: userProcess', () => {
       .toEqual({
         authorizationStatus: AuthorizationStatus.Auth,
         user: email
+      });
+  });
+
+  it('should logout user', () => {
+    const state = {
+      authorizationStatus: AuthorizationStatus.Auth,
+      user: email
+    };
+
+    expect(userProcess.reducer(state, { type: logoutUser.fulfilled.type }))
+      .toEqual({
+        authorizationStatus: AuthorizationStatus.NoAuth,
+        user: ''
       });
   });
 });
